@@ -7,7 +7,16 @@
 
   tasks:
   - name: Stop docker container
-    docker: image={{ image_name }} name="{{ container_name  }}"state=killed
+    command: docker stop tangy-mongo-1
+    ignore_errors: yes
 
-  - name: Start docker image
-    docker: image={{ image_name }} env="DB_SERVER=192.168.2.8" ports={{ app_port  }}:{{ app_port }}
+  - name: Remove docker container
+    command: docker rm tangy-mongo-1
+    ignore_errors: yes
+
+  - name: Pull the docker image from docker hub
+    command: docker pull andutta/tangy-mongo-1.0
+
+  - name: Start docker container
+    command: docker run -d -p 9099:9099 -e DB_SERVER=192.168.2.8 --name tangy-mongo-1 andutta/tangy-mongo-1.0
+
