@@ -1,0 +1,13 @@
+---
+- hosts: docker
+  vars_files:
+    - vars.yml
+  gather_facts: true
+  sudo: true
+
+  tasks:
+  - name: Stop docker container
+    docker: image={{ image_name }} name="{{ container_name  }}"state=killed
+
+  - name: Start docker image
+    docker: image={{ image_name }} env="DB_SERVER=192.168.2.8" ports={{ app_port  }}:{{ app_port }}
