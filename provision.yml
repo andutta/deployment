@@ -18,5 +18,5 @@
     command: docker pull andutta/tangy-mongo-1.0
 
   - name: Start docker container
-    command: docker run -d -p 9099:9099 -e DB_SERVER=192.168.2.8 --name tangy-mongo-1 andutta/tangy-mongo-1.0
+    command: docker run -d -p 9099:9099 -e HOST_NAME={{inventory_hostname}} -e DB_SERVER=192.168.2.8 -e SERVER_PORT=9099 -e CONSUL_HOST=192.168.2.8 --name tangy-mongo-1 andutta/tangy-mongo-1.0
 
